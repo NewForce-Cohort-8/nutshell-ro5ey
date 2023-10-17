@@ -1,5 +1,6 @@
 import { LoginForm } from "./auth/LoginForm.js"
 import { RegisterForm } from "./auth/RegisterForm.js"
+import { fetchNews } from "./dataAccess.js"
 import { Nutshell } from "./Nutshell.js"
 
 
@@ -20,3 +21,16 @@ if(!activeUser){
 } else {
     Nutshell()
 }
+
+const mainContainer = document.querySelector(".container")
+
+// fetching the data from the API and storing it in application state before we convert the data structures to HTML representations//
+const render = () => {
+    fetchNews().then(
+        () => {
+            mainContainer.innerHTML = Nutshell()
+        }
+    )
+}
+
+render()
