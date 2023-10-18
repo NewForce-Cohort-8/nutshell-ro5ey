@@ -3,6 +3,7 @@ let applicationState = {};
 const API = "http://localhost:8088";
 
 const dashboard = document.querySelector(".dashboard");
+const main = document.querySelector(".container");
 
 //fetch message
 export const fetchMessages = () => {
@@ -23,7 +24,7 @@ export const deleteMessage = (id) => {
 	return fetch(`${API}/messages/${id}`, {
 		method: "DELETE",
 	}).then(() => {
-		dashboard.dispatchEvent(new CustomEvent("stateChanged"));
+		main.dispatchEvent(new CustomEvent("stateChanged"));
 	});
 };
 
@@ -59,6 +60,6 @@ export const sendMessage = (userMessage) => {
 			return response.json();
 		})
 		.then(() => {
-			dashboard.dispatchEvent(new CustomEvent("stateChanged"));
+			main.dispatchEvent(new CustomEvent("stateChanged"));
 		});
 };

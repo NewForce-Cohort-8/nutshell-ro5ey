@@ -1,7 +1,7 @@
 import { LoginForm } from "./auth/LoginForm.js";
 import { RegisterForm } from "./auth/RegisterForm.js";
 import { Nutshell } from "./Nutshell.js";
-import { fetchMessages, fetchUsers } from "./dataAccess.js";
+import { fetchUsers, fetchMessages } from "./dataAccess.js";
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -11,11 +11,22 @@ import { fetchMessages, fetchUsers } from "./dataAccess.js";
         ensure that the Nutshell component gets rendered
 */
 
-const activeUser = sessionStorage.getItem("activeUser");
+const mainContainer = document.querySelector(".container");
+const render = () => {
+	fetchUsers()
+		.then(() => fetchMessages())
+		.then(() => {
+			const activeUser = sessionStorage.getItem("activeUser");
+			if (!activeUser) {
+				mainContainer.innerHTML = LoginForm() + RegisterForm();
+			} else {
+				mainContainer.innerHTML = Nutshell();
+			}
+		});
+};
 
-if (!activeUser) {
-	LoginForm();
-	RegisterForm();
-} else {
-	Nutshell();
-}
+render();
+
+mainContainer.addEventListener("stateChanged", (customEvent) => {
+	render();
+});
