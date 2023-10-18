@@ -63,3 +63,33 @@ export const sendMessage = (userMessage) => {
 			main.dispatchEvent(new CustomEvent("stateChanged"));
 		});
 };
+
+export const fetchMessageReactions = () => {
+	return fetch(`${API}/messageReactions`)
+		.then((response) => response.json())
+		.then((reactions) => {
+			applicationState.messageReactions = reactions;
+		});
+};
+
+export const getReactions = () => {
+	return applicationState.messageReactions.map((reaction) => ({ ...reaction }));
+};
+
+export const sendReaction = (userReaction) => {
+	return fetch(`${API}/messageReactions`, fetchMessageReactions(userReaction))
+		.then((response) => {
+			return response.json();
+		})
+		.then(() => {
+			main.dispatchEvent(new CustomEvent("stateChanged"));
+		});
+};
+
+export const deleteReaction = (id) => {
+	return fetch(`${API}/messageReactions/${id}`, {
+		method: "DELETE",
+	}).then(() => {
+		main.dispatchEvent(new CustomEvent("stateChanged"));
+	});
+};

@@ -3,20 +3,20 @@ import {
 	sendMessage,
 	getUsers,
 	deleteMessage,
-	fetchMessages,
-	fetchUsers,
+	getReactions,
+	sendReaction,
+	deleteReaction,
 } from "./dataAccess.js";
 
 //grab container
 const mainContainer = document.querySelector(".container");
 
-//grab dashboard
-const contentTarget = document.querySelector(".dashboard");
-
 //get active user key value from sessionStorage window object
 
 //set matchedUser to null
 let matchedUser = null;
+
+const ReactionButtons = (userId, messageId) => {};
 
 //create message input function
 const MessageInput = () => {
@@ -82,7 +82,7 @@ export const Chat = () => {
 };
 
 //click event listenters
-document.addEventListener("click", (event) => {
+mainContainer.addEventListener("click", (event) => {
 	const userId = sessionStorage.getItem("activeUser");
 	//if clicking send button, send message to database
 	if (event.target.id === "send") {
@@ -123,12 +123,12 @@ document.addEventListener("click", (event) => {
 		if (thisMessageButton.classList.contains("hidden")) {
 			thisMessageButton.classList.remove("hidden");
 			thisMessageWrapper.classList.add("message-wrapper");
-			// eventHub.dispatchEvent(new CustomEvent("stateChanged"));
+			eventHub.dispatchEvent(new CustomEvent("stateChanged"));
 		} else {
 			//remove delete button and highlight from message
 			thisMessageButton.classList.add("hidden");
 			thisMessageWrapper.classList.remove("message-wrapper");
-			// eventHub.dispatchEvent(new CustomEvent("stateChanged"));
+			eventHub.dispatchEvent(new CustomEvent("stateChanged"));
 		}
 	}
 });

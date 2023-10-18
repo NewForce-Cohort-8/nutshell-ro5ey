@@ -1,7 +1,11 @@
 import { LoginForm } from "./auth/LoginForm.js";
 import { RegisterForm } from "./auth/RegisterForm.js";
 import { Nutshell } from "./Nutshell.js";
-import { fetchUsers, fetchMessages } from "./dataAccess.js";
+import {
+	fetchUsers,
+	fetchMessages,
+	fetchMessageReactions,
+} from "./dataAccess.js";
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -15,6 +19,7 @@ const mainContainer = document.querySelector(".container");
 const render = () => {
 	fetchUsers()
 		.then(() => fetchMessages())
+		.then(() => fetchMessageReactions())
 		.then(() => {
 			const activeUser = sessionStorage.getItem("activeUser");
 			if (!activeUser) {
