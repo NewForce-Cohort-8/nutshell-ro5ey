@@ -1,4 +1,4 @@
-import { getNews } from "./dataAccess.js";
+import { deleteNewsArticle, getNews} from "./dataAccess.js";
 
 const mainContainer = document.querySelector(".container")
 
@@ -37,6 +37,6 @@ export const News = () => {
 mainContainer.addEventListener("click", click => {
     if (click.target.id.startsWith("news--")) {
         const [,newsId] = click.target.id.split("--")
-        deleteNews(parseInt(newsId))
+        deleteNewsArticle(parseInt(newsId))
     }
 })

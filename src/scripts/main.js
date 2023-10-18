@@ -34,3 +34,10 @@ const render = () => {
 }
 
 render()
+
+mainContainer.addEventListener(
+    "stateChanged",
+    customNewsEvent => {
+        render()
+    }
+)
