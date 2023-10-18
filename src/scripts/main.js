@@ -1,6 +1,7 @@
 import { LoginForm } from "./auth/LoginForm.js"
 import { RegisterForm } from "./auth/RegisterForm.js"
 import { Nutshell } from "./Nutshell.js"
+import { fetchTasks } from "./dataAccess.js"
 
 
 /*
@@ -11,6 +12,13 @@ import { Nutshell } from "./Nutshell.js"
         ensure that the Nutshell component gets rendered
 */
 
+const render = () => {
+    fetchTasks().then(
+        () => {
+            mainContainer.innerHTML = Nutshell()
+        }
+    )
+}
 
 const activeUser = sessionStorage.getItem("activeUser")
 
@@ -18,5 +26,7 @@ if(!activeUser){
     LoginForm()
     RegisterForm()
 } else {
+    render()
     Nutshell()
 }
+
