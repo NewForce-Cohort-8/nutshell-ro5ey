@@ -1,7 +1,7 @@
-import { LoginForm } from "./auth/LoginForm.js"
-import { RegisterForm } from "./auth/RegisterForm.js"
-import { Nutshell } from "./Nutshell.js"
-
+import { LoginForm } from "./auth/LoginForm.js";
+import { RegisterForm } from "./auth/RegisterForm.js";
+import { Nutshell } from "./Nutshell.js";
+import { fetchMessages, fetchUsers } from "./dataAccess.js";
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -11,12 +11,11 @@ import { Nutshell } from "./Nutshell.js"
         ensure that the Nutshell component gets rendered
 */
 
+const activeUser = sessionStorage.getItem("activeUser");
 
-const activeUser = sessionStorage.getItem("activeUser")
-
-if(!activeUser){
-    LoginForm()
-    RegisterForm()
+if (!activeUser) {
+	LoginForm();
+	RegisterForm();
 } else {
-    Nutshell()
+	Nutshell();
 }
