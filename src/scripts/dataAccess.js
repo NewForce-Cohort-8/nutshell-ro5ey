@@ -4,6 +4,7 @@ const API = "http://localhost:8088";
 
 const dashboard = document.querySelector(".dashboard");
 
+//fetch message
 export const fetchMessages = () => {
 	return fetch(`${API}/messages`)
 		.then((response) => response.json())
@@ -12,10 +13,12 @@ export const fetchMessages = () => {
 		});
 };
 
+//save messages to application state
 export const getMessages = () => {
 	return applicationState.messages.map((message) => ({ ...message }));
 };
 
+//delete message from database
 export const deleteMessage = (id) => {
 	return fetch(`${API}/messages/${id}`, {
 		method: "DELETE",
@@ -24,6 +27,7 @@ export const deleteMessage = (id) => {
 	});
 };
 
+//fetch users
 export const fetchUsers = () => {
 	return fetch(`${API}/users`)
 		.then((response) => response.json())
@@ -32,9 +36,12 @@ export const fetchUsers = () => {
 		});
 };
 
+//copy users
 export const getUsers = () => {
 	return applicationState.users.map((user) => ({ ...user }));
 };
+
+//fetch options for post
 const fetchOptions = (obj) => {
 	return {
 		method: "POST",
@@ -45,6 +52,7 @@ const fetchOptions = (obj) => {
 	};
 };
 
+//send message to database
 export const sendMessage = (userMessage) => {
 	return fetch(`${API}/messages`, fetchOptions(userMessage))
 		.then((response) => {
