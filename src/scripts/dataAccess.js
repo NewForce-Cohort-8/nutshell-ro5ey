@@ -36,7 +36,7 @@ export const sendArticle = (userNewsArticle) => {
     return fetch(`${API}/news`, fetchOptions)
         .then(response => response.json())
         .then(() => {
-            mainContainer.dispatchEvent(new CustomNewsEvent("stateChanged"))
+            mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
         })
 }
 
@@ -46,7 +46,7 @@ export const deleteNewsArticle = (id) => {
     return fetch(`${API}/news/${id}`, { method: "DELETE" })
         .then(
             () => {
-                mainContainer.dispatchEvent(new CustomNewsEvent("stateChanged"))
+                mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
             }
         )
 }

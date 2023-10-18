@@ -1,19 +1,22 @@
 import { deleteNewsArticle, getNews} from "./dataAccess.js";
+import { NewsForm } from "./newsForm.js";
 
 const mainContainer = document.querySelector(".container")
 
 
-const convertRequestToListElement = (newsEntry) => 
+const convertArticleToListElement = (newsEntry) => 
 {
     
-    let html = `<li>
+    let html = `
+    
+    <li>
         Title:${newsEntry.title} 
     </li>
     
     <li>
         ${newsEntry.title}
-        <button class="request__delete"
-                id="request--${newsEntry.id}">
+        <button class="news__delete"
+                id="news--${newsEntry.id}">
             Delete
         </button>
     </li>
@@ -27,13 +30,15 @@ export const News = () => {
     let html = `
     <ul>
         ${
-            news.map(convertRequestToListElement).join("")
+            news.map(convertArticleToListElement).join("")
         }
     </ul>
     `
     return html
 }
 
+
+//News article delete button event listener// 
 mainContainer.addEventListener("click", click => {
     if (click.target.id.startsWith("news--")) {
         const [,newsId] = click.target.id.split("--")

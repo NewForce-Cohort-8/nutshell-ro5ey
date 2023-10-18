@@ -24,7 +24,7 @@ if(!activeUser){
 
 const mainContainer = document.querySelector(".container")
 
-// fetching the data from the API and storing it in application state before we convert the data structures to HTML representations//
+// fetching the news data from the API and storing it in application state before we convert the data structures to HTML representations//
 const render = () => {
     fetchNews().then(
         () => {
@@ -35,9 +35,11 @@ const render = () => {
 
 render()
 
+//rerender page when state changes
 mainContainer.addEventListener(
     "stateChanged",
     customNewsEvent => {
         render()
     }
 )
+
