@@ -9,7 +9,7 @@ import {
 } from "./dataAccess.js";
 import { fetchChuckFact } from "./ChuckNorris.js";
 import { fetchDadJoke } from "./DadJokes.js";
-
+import { fetchRandomActivity } from "./RandomActivity.js";
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
     2. If so, render the Nutshell component
@@ -26,6 +26,7 @@ const render = () => {
 		.then(() => fetchMessageReactions())
 		.then(() => fetchChuckFact())
 		.then(() => fetchDadJoke())
+		.then(() => fetchRandomActivity())
 		.then(() => {
 			const activeUser = sessionStorage.getItem("activeUser");
 			if (!activeUser) {
