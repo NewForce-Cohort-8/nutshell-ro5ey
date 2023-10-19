@@ -4,13 +4,14 @@ import { Nutshell } from "./Nutshell.js";
 import {
 	fetchUsers,
 	fetchMessages,
-	fetchMessageReactions,
 	fetchNews,
+	fetchTasks,
 } from "./dataAccess.js";
 import { fetchChuckFact } from "./ChuckNorris.js";
 import { fetchDadJoke } from "./DadJokes.js";
 import { fetchRandomActivity } from "./RandomActivity.js";
 import { fetchBreweries } from "./Breweries.js";
+
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
     2. If so, render the Nutshell component
@@ -24,6 +25,7 @@ const render = () => {
 	fetchUsers()
 		.then(() => fetchMessages())
 		.then(() => fetchNews())
+		.then(() => fetchTasks())
 		.then(() => fetchMessageReactions())
 		.then(() => fetchChuckFact())
 		.then(() => fetchDadJoke())
