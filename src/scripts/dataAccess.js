@@ -2,11 +2,11 @@
 
 export const applicationState = {
 
-    events:[],
+    events:[]
 }
 const API = "http://localhost:8088"
 //selects an HTML element with the ID "dashboard" in the document and assigns a reference to that element to the JavaScript variable dashboard. This allows you to manipulate and interact with the selected HTML element in your JavaScript code using the dashboard variable.
-const dashboard = document.querySelector("#dashboard")
+const mainContainer = document.querySelector("#dashboard")
 
 
 //fetchs eventsfrom api - update the application's state with the fetched data, making it available for use in other parts of the application
@@ -20,7 +20,17 @@ export const fetchEvents = () => {
             }
         )
 }
-
+//brings users from api
+export const fetchUsers = () => {
+    return fetch(`${API}/users`)
+        .then(response => response.json())
+        .then(
+            (data) => {
+        
+                applicationState.users = data
+            }
+        )
+}
 //exports getevents - returns array of new objects with same data as events but seperate instances
 export const getEvents = () => {
     return applicationState.events.map(events => ({ ...events}))
@@ -28,10 +38,14 @@ export const getEvents = () => {
 
 // ability to save event
 export const saveEvent = (userEventRequest) => {
+
+
+
+    
 //a string that represents the contents of the userEventRequest object in JSON format
 body: JSON.stringify(userEventRequest)
 //this code fetches data from a specified API endpoint, processes the response as JSON, and then triggers a custom event named "stateChanged" on the mainContainer element
-return fetch(`${API}/events`, fetchOptions)
+return fetch(`${API}/events/${id}, fetchOptions`, {method: "POST"})
     .then(response => response.json())
     .then(() => {
         mainContainer.dispatchEvent(new CustomEvent("stateChanged"))

@@ -1,6 +1,7 @@
 import { saveEvent } from "/dataAccess.js"
-
+const mainContainer = document.querySelector("#container")
 export const eventForm = () => {
+    //template literals for for form which includes fields for event name, date, location, time, and description, along with a "Save Event" button and a background image container
     let html = `
    <h2>Add your Event</h2>
         <div class="field">
@@ -23,12 +24,12 @@ export const eventForm = () => {
             <label class="label" for="eventDescription">Event Description</label>
             <input type="date" name="eventDescription" class="input" />
         </div>
-           <button class="button" id="saveEvent" style="background-color: teal; font-family: Times New Roman">Save Event</button>
+           <button class="button" id="saveEvent" style="background-color: grey; font-family: Times New Roman">Save Event</button>
         <div class="bg-image"></div>
     `
     return html
 }
-const mainContainer = document.querySelector("#container")
+//code listens for a click event on the mainContainer, checks if the "Save Event" button was clicked, collects user input data, prepares the data for sending to an API, and ensures that all required fields are filled out before initiating the data-saving process - console log inspects main container variable
 console.log (mainContainer)
 mainContainer.addEventListener("click", clickEvent => {
     if (clickEvent.target.id === "saveEvent") {
@@ -55,7 +56,5 @@ mainContainer.addEventListener("click", clickEvent => {
 }
 })
 
-document.getElementById('eventForm').reportValidity();
-if (check) {
-    return true;
-}
+//document.getElementById('eventForm').reportValidity();
+//if (check) { //return true;
