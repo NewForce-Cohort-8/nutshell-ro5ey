@@ -6,6 +6,7 @@ import {
 	fetchMessages,
 	fetchMessageReactions,
 } from "./dataAccess.js";
+import { fetchChuckFact } from "./ChuckNorris.js";
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -20,6 +21,7 @@ const render = () => {
 	fetchUsers()
 		.then(() => fetchMessages())
 		.then(() => fetchMessageReactions())
+		.then(() => fetchChuckFact())
 		.then(() => {
 			const activeUser = sessionStorage.getItem("activeUser");
 			if (!activeUser) {
