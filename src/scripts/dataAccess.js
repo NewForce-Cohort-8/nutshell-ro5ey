@@ -53,6 +53,29 @@ const fetchOptions = (obj) => {
 	};
 };
 
+const fetchUpdate = (obj) => {
+	return {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(obj),
+	};
+};
+
+export const updateReaction = (userReaction, reactionId) => {
+	return fetch(
+		`${API}/messageReactions/${reactionId}`,
+		fetchUpdate(userReaction)
+	)
+		.then((response) => {
+			return response.json();
+		})
+		.then(() => {
+			main.dispatchEvent(new CustomEvent("stateChanged"));
+		});
+};
+
 //send message to database
 export const sendMessage = (userMessage) => {
 	return fetch(`${API}/messages`, fetchOptions(userMessage))
@@ -77,7 +100,7 @@ export const getReactions = () => {
 };
 
 export const sendReaction = (userReaction) => {
-	return fetch(`${API}/messageReactions`, fetchMessageReactions(userReaction))
+	return fetch(`${API}/messageReactions`, fetchOptions(userReaction))
 		.then((response) => {
 			return response.json();
 		})
@@ -92,4 +115,14 @@ export const deleteReaction = (id) => {
 	}).then(() => {
 		main.dispatchEvent(new CustomEvent("stateChanged"));
 	});
+};
+
+export const setScrollHeight = () => {
+	const chatHistory = document.querySelector("#chat-history");
+	sessionStorage.setItem("chatScroll", chatHistory.scrollTop);
+	let userChatScroll = sessionStorage.getItem(
+		"chatScroll",
+		chatHistory.scrollTop
+	);
+	chatHistory.scrollTop = parseInt(userChatScroll);
 };
