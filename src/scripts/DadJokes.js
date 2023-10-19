@@ -1,25 +1,33 @@
-let currentJoke;
-export const DadJokes = () => {
-	let html = "";
-	const fetchDadJoke = () => {
-		const url = "https://dad-jokes.p.rapidapi.com/random/joke";
-		const options = {
-			method: "GET",
-			headers: {
-				"X-RapidAPI-Key": "cdf9e19d97msh4c01a1cec7b4d83p1fce09jsne3a1260463d4",
-				"X-RapidAPI-Host": "dad-jokes.p.rapidapi.com",
-			},
-		};
+const dadJokeAPI = `https://icanhazdadjoke.com/`;
 
-		fetch(url, options)
-			.then((response) => response.json())
-			.then((joke) => {
-				currentJoke = joke.body[0];
-				console.log(currentJoke);
-				console.log(currentJoke.setup);
-				console.log(currentJoke.punchline);
-			});
-	};
+let dadJoke = {};
 
-	fetchDadJoke();
+export const fetchDadJoke = () => {
+	return fetch(`${dadJokeAPI}`, {
+		method: "GET",
+		headers: {
+			Accept: "application/json",
+		},
+	})
+		.then((response) => response.json())
+		.then((joke) => {
+			console.log(joke);
+			dadJoke = joke.joke;
+		});
 };
+
+const jokeWrapper = (joke) => {
+	return `<article id="dad-jokes"><h2>Dad Joke</h2><div id="dad-joke-wrapper">${joke}</div><button class="new-button" id="new-dad-joke">NEW DAD JOKE</button></article>`;
+};
+export const DadJokes = () => {
+	return jokeWrapper(dadJoke);
+};
+
+document.addEventListener("click", (event) => {
+	if (event.target.id === "new-dad-joke") {
+		let newDadJoke = document.querySelector("#dad-joke-wrapper");
+		fetchDadJoke().then(() => {
+			newDadJoke.innerHTML = dadJoke;
+		});
+	}
+});
