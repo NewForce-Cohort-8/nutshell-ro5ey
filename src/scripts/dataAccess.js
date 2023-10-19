@@ -6,7 +6,8 @@ export const applicationState = {
 }
 const API = "http://localhost:8088"
 //selects an HTML element with the ID "dashboard" in the document and assigns a reference to that element to the JavaScript variable dashboard. This allows you to manipulate and interact with the selected HTML element in your JavaScript code using the dashboard variable.
-const mainContainer = document.querySelector("#dashboard")
+const dashboard = document.querySelector(".dashboard");
+const mainContainer = document.querySelector(".container")
 
 
 //fetchs eventsfrom api - update the application's state with the fetched data, making it available for use in other parts of the application
@@ -14,12 +15,18 @@ export const fetchEvents = () => {
     return fetch(`${API}/events`)
         .then(response => response.json())
         .then(
-            (data) => {
+            (newEvents) => {
         
-                applicationState.events = data
+                applicationState.events = newEvents
             }
         )
 }
+
+//exports getevents - returns array of new objects with same data as events but seperate instances
+export const getEvents = () => {
+    return applicationState.events.map(event => ({ ...event}))
+}
+
 //brings users from api
 export const fetchUsers = () => {
     return fetch(`${API}/users`)
@@ -30,10 +37,6 @@ export const fetchUsers = () => {
                 applicationState.users = data
             }
         )
-}
-//exports getevents - returns array of new objects with same data as events but seperate instances
-export const getEvents = () => {
-    return applicationState.events.map(events => ({ ...events}))
 }
 
 // ability to save event

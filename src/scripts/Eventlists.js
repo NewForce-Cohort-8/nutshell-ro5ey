@@ -1,5 +1,5 @@
 // Import functions that will pull data from the API and cache it locally
-import { deleteEvent, getEvents } from './dataAccess.js'
+import { getEvents } from './dataAccess.js'
 // Import function to generate HTML for each event object
 import { eventForm } from './Events.js'
 
