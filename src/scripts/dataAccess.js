@@ -2,7 +2,6 @@ let applicationState = {};
 
 const API = "http://localhost:8088";
 
-const dashboard = document.querySelector(".dashboard");
 const main = document.querySelector(".container");
 
 //fetch message
