@@ -1,8 +1,13 @@
 import { LogOutButton } from "./auth/LogoutButton.js";
 import { Chat } from "./Chat.js";
-import { fetchMessages, fetchUsers } from "./dataAccess.js";
+import { News } from "./news.js"
+
+
 
 export const Nutshell = () => {
 	return `${LogOutButton()}
-	${Chat()}`;
+	${Chat()}<div class="news">    
+    ${News()}        
+    </div>`;
 };
+
