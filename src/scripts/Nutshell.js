@@ -3,11 +3,14 @@ import { getTasks } from "./dataAccess.js";
 import { TaskForm } from "./TaskForm.js"
 import { TaskList } from "./Tasks.js"
 import { Chat } from "./Chat.js";
-import { fetchMessages, fetchUsers } from "./dataAccess.js";
+import { News } from "./news.js"
+
+
 
 export const Nutshell = () => {
   return `${LogOutButton()}
   ${Chat()}
+  ${News()} 
   ${TaskForm()}
   ${TaskList()}`
 };
@@ -20,3 +23,4 @@ export const Nutshell = () => {
 
       // Render all your UI components here
   
+
