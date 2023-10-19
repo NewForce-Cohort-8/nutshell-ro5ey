@@ -1,7 +1,7 @@
-import { LoginForm } from "./auth/LoginForm.js"
-import { RegisterForm } from "./auth/RegisterForm.js"
-import { fetchNews } from "./dataAccess.js"
-import { Nutshell } from "./Nutshell.js"
+import { LoginForm } from "./auth/LoginForm.js";
+import { RegisterForm } from "./auth/RegisterForm.js";
+import { Nutshell } from "./Nutshell.js";
+import { fetchUsers, fetchMessages, fetchNews } from "./dataAccess.js";
 
 
 /*
@@ -12,34 +12,25 @@ import { Nutshell } from "./Nutshell.js"
         ensure that the Nutshell component gets rendered
 */
 
-
-const activeUser = sessionStorage.getItem("activeUser")
-
-if(!activeUser){
-    LoginForm()
-    RegisterForm()
-} else {
-    Nutshell()
-}
-
-const mainContainer = document.querySelector(".container")
-
-//News Feature//
+const mainContainer = document.querySelector(".container");
 const render = () => {
-    fetchNews().then(
-        () => {
-            mainContainer.innerHTML = Nutshell()
-        }
-    )
-}
+	fetchUsers()
+		.then(() => fetchMessages())
+    .then(() => fetchNews())
+ 		.then(() => {
+			const activeUser = sessionStorage.getItem("activeUser");
+			if (!activeUser) {
+				mainContainer.innerHTML = LoginForm() + RegisterForm();
+			} else {
+				mainContainer.innerHTML = Nutshell();
+			}
+		});
+};
 
-render()
+render();
 
-//rerender page when state changes
-mainContainer.addEventListener(
-    "stateChanged",
-    customNewsEvent => {
-        render()
-    }
-)
+
+mainContainer.addEventListener("stateChanged", (customEvent) => {
+	render();
+});
 

@@ -1,0 +1,95 @@
+.chat-component {
+	display: flex;
+	max-width: 40vw;
+	min-width: 25vw;
+	height: 90vh;
+	justify-content: space-between;
+	padding: 1em;
+}
+
+.chat-history,
+.send-message-inputs {
+	display: flex;
+}
+
+.send-message-inputs {
+	height: auto;
+	width: 100%;
+}
+
+.column {
+	flex-direction: column;
+	width: 100%;
+}
+
+.row {
+	flex-direction: row;
+}
+
+.chat-item {
+	display: flex;
+	justify-content: space-between;
+	max-width: 100%;
+	margin-bottom: 1em;
+}
+
+.chat-bar {
+	width: 100%;
+	height: auto;
+}
+.chat-history {
+	max-height: auto;
+	overflow-y: scroll;
+	flex-direction: column-reverse;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	gap: 1em;
+	padding-bottom: 1em;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.chat-history::-webkit-scrollbar {
+	display: none;
+}
+
+.delete-button {
+	max-width: 100%;
+	margin-top: 1em;
+}
+
+.hidden {
+	display: none;
+}
+
+.message {
+	background-color: rgb(239, 239, 239);
+	border-radius: 2em;
+	padding: 1em;
+	width: fit-content;
+}
+
+.user-name {
+	margin-bottom: 0.5em;
+}
+
+.message-wrapper {
+	width: 100%;
+}
+
+.message-wrapper > .message {
+	width: auto;
+	margin: 0 1em 0.5em;
+	background-color: rgb(58, 58, 58);
+	color: rgb(239, 239, 239);
+}
+
+.message-wrapper > .delete-button {
+	width: auto;
+	margin: 0.25em 2em 0.5em;
+}
+
+.message-wrapper > .user-name {
+	margin-top: 1em;
+	margin-left: 1em;
+}
