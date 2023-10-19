@@ -4,22 +4,19 @@ import { NewsForm } from "./newsForm.js";
 const mainContainer = document.querySelector(".container")
 
 
+
 const convertArticleToListElement = (newsEntry) => 
 {
     
     let html = `
     
     <li>
-        Title:${newsEntry.title} 
-    </li>
-    
-    <li>
-        ${newsEntry.title}
-        <button class="news__delete"
+    ${newsEntry.title}
+             <button class="news__delete"
                 id="news--${newsEntry.id}">
             Delete
         </button>
-    </li>
+    </li>    
 `
     
     return html
@@ -28,6 +25,11 @@ const convertArticleToListElement = (newsEntry) =>
 export const News = () => {
     const news = getNews()
     let html = `
+    <h2>News</h2>    
+
+    <div class="newsForm">         
+    </div>
+    <button class="button" id="newArticle">New Article</button>
     <ul>
         ${
             news.map(convertArticleToListElement).join("")
@@ -37,6 +39,13 @@ export const News = () => {
     return html
 }
 
+mainContainer.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id === "newArticle") {
+    console.log('click')
+    mainContainer.innerHTML += NewsForm()
+    }
+  
+  })
 
 //News article delete button event listener// 
 mainContainer.addEventListener("click", click => {
@@ -45,3 +54,4 @@ mainContainer.addEventListener("click", click => {
         deleteNewsArticle(parseInt(newsId))
     }
 })
+

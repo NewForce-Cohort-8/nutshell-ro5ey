@@ -24,7 +24,7 @@ if(!activeUser){
 
 const mainContainer = document.querySelector(".container")
 
-// fetching the news data from the API and storing it in application state before we convert the data structures to HTML representations//
+//News Feature//
 const render = () => {
     fetchNews().then(
         () => {
