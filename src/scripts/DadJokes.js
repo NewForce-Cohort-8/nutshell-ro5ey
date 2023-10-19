@@ -11,7 +11,6 @@ export const fetchDadJoke = () => {
 	})
 		.then((response) => response.json())
 		.then((joke) => {
-			console.log(joke);
 			dadJoke = joke.joke;
 		});
 };
