@@ -5,6 +5,7 @@ import {
 	fetchUsers,
 	fetchMessages,
 	fetchMessageReactions,
+	fetchNews,
 } from "./dataAccess.js";
 import { fetchChuckFact } from "./ChuckNorris.js";
 import { fetchDadJoke } from "./DadJokes.js";
@@ -21,6 +22,7 @@ const mainContainer = document.querySelector(".container");
 const render = () => {
 	fetchUsers()
 		.then(() => fetchMessages())
+		.then(() => fetchNews())
 		.then(() => fetchMessageReactions())
 		.then(() => fetchChuckFact())
 		.then(() => fetchDadJoke())
