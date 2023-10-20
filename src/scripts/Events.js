@@ -1,4 +1,4 @@
-import { getEvents, saveEvent } from "./Dataaccess.js"
+import { getEvents, saveEvent, deleteEvent } from "./Dataaccess.js"
 
 //code sets up a reference to an HTML element with the id "dashboard" using the document.querySelector() method.
 const mainContainer = document.querySelector(".container") //id //class . 
@@ -70,7 +70,9 @@ mainContainer.addEventListener("click", clickEvent => {
 })
 //targets elements whose id starts with "delete-event--". calls the deleteEvent function
 mainContainer.addEventListener("click", clickEvent => {
-    if(clickEvent.target.id.startsWith("listOfEvents--")){ 
-        deleteEvent(parseInt(clickEvent.target.value))
+    if(clickEvent.target.id.startsWith("delete-event--")){ 
+        const [,eventId] = clickEvent.target.id.split("--")
+        console.log(eventId)
+        deleteEvent(eventId)
     }
 })

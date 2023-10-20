@@ -49,7 +49,7 @@ const fetchOptions = {
 body: JSON.stringify(userEventRequest)}
 
 //this code fetches data from a specified API endpoint, processes the response as JSON, and then triggers a custom event named "stateChanged" on the mainContainer element
-return fetch(`${API}/events/${id}`, fetchOptions)
+return fetch(`${API}/events/`, fetchOptions)
     .then(response => response.json())
     .then(() => {
         mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
@@ -57,7 +57,7 @@ return fetch(`${API}/events/${id}`, fetchOptions)
  }
 
 // delete event capability
-export const deleteEvent = () => {
+export const deleteEvent = (id) => {
     return fetch(`${API}/events/${id}`, { method: "DELETE" })
     .then(
         () => {
