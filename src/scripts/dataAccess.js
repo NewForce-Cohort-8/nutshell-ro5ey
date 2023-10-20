@@ -1,6 +1,6 @@
 //this is to create and export an object that can be used to store the state of an application. ?The state object contains only one property, events, which is an empty array.
 
-export const applicationState = {
+let applicationState = {
 
     events:[]
 }

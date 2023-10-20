@@ -1,7 +1,17 @@
 import { LoginForm } from "./auth/LoginForm.js";
 import { RegisterForm } from "./auth/RegisterForm.js";
 import { Nutshell } from "./Nutshell.js";
-import { fetchUsers, fetchMessages, fetchNews } from "./dataAccess.js";
+import {
+	fetchUsers,
+	fetchMessages,
+	fetchMessageReactions,
+	fetchNews,
+  fetchTasks,
+  fetchEvents
+} from "/dataAccess.js";
+import { fetchChuckFact } from "./ChuckNorris.js";
+import { fetchDadJoke } from "./DadJokes.js";
+import { fetchRandomActivity } from "./RandomActivity.js";
 
 
 /*
@@ -11,24 +21,28 @@ import { fetchUsers, fetchMessages, fetchNews } from "./dataAccess.js";
     4. Also, if the user authenticates, and the login form is initially shown
         ensure that the Nutshell component gets rendered
 */
-
 const mainContainer = document.querySelector(".container");
 const render = () => {
 	fetchUsers()
 		.then(() => fetchMessages())
-    .then(() => fetchNews())
- 		.then(() => {
+		.then(() => fetchNews())
+		.then(() =>fetchEvents)
+    .then(() => fetchTasks())
+		.then(() => fetchMessageReactions())
+		.then(() => fetchChuckFact())
+		.then(() => fetchDadJoke())
+		.then(() => fetchRandomActivity())
+		.then(() => {
 			const activeUser = sessionStorage.getItem("activeUser");
 			if (!activeUser) {
 				mainContainer.innerHTML = LoginForm() + RegisterForm();
 			} else {
-				mainContainer.innerHTML = Nutshell();
+				mainContainer.innerHTML = Nutshell() 
 			}
 		});
 };
 
 render();
-
 
 mainContainer.addEventListener("stateChanged", (customEvent) => {
 	render();

@@ -1,4 +1,4 @@
-import { getEvents, deleteEvent } from "./dataAccess.js";
+import { getEvents, deleteEvent } from "/dataAccess.js";
 //code sets up a reference to an HTML element with the id "dashboard" using the document.querySelector() method.
 const mainContainer = document.querySelector(".container") //id //class . 
 

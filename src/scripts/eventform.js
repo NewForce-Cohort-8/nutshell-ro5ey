@@ -1,38 +1,11 @@
-import { saveEvent } from "./dataAccess.js"
+import { saveEvent } from "/dataAccess.js"
 
 
 const mainContainer = document.querySelector(".container")
+const userId = sessionStorage.getItem("activeUser");
+
 
 ////code listens for a click event on the mainContainer, checks if the "Save Event" button was clicked, collects user input data, prepares the data for sending to an API, and ensures that all required fields are filled out before initiating the data-saving process - console log inspects main container variable
-
-
-mainContainer.addEventListener("click", clickEvent => {
-    if (clickEvent.target.id === "saveEvent") {
-        const userEvent = document.querySelector("input[name='eventName']").value
-        const userDate = document.querySelector("input[name='eventDate']").value
-        const userLocation = document.querySelector("input[name='eventLocation']").value
-        const userTime = document.querySelector("input[name='eventTime']").value
-        const  userDescription= document.querySelector("input[name='eventDescription']").value
-
-        const dataToSendToAPI = {
-            name: userEvent,
-            eventDate:userDate,
-            location: userLocation,
-            eventTime: userTime,
-            description: userDescription
-        }
-        
- if(userEvent && userDate && userLocation && userTime && userDescription) {
-
-    saveEvent(dataToSendToAPI)
-    //mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
-}
-else {
-    window.alert("Please finish all fields")
-}
-    }
-        })
-
 
 export const eventForm = () => {
     //template literals for for form which includes fields for event name, date, location, time, and description, along with a "Save Event" button and a background image container
@@ -63,6 +36,34 @@ export const eventForm = () => {
     `
     return html
 }
+
+mainContainer.addEventListener("click", clickEvent => {
+    if (clickEvent.target.id === "saveEvent") {
+        const userEvent = document.querySelector("input[name='eventName']").value
+        const userDate = document.querySelector("input[name='eventDate']").value
+        const userLocation = document.querySelector("input[name='eventLocation']").value
+        const userTime = document.querySelector("input[name='eventTime']").value
+        const  userDescription= document.querySelector("input[name='eventDescription']").value
+
+        const dataToSendToAPI = {
+            name: userEvent,
+            eventDate:userDate,
+            location: userLocation,
+            eventTime: userTime,
+            description: userDescription
+        }
+        
+ if(userEvent && userDate && userLocation && userTime && userDescription) {
+
+    saveEvent(dataToSendToAPI)
+    //mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+}
+else {
+    window.alert("Please finish all fields")
+}
+    }
+        })
+
 
 
 //console.log (mainContainer)

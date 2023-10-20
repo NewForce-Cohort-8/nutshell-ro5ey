@@ -1,7 +1,7 @@
 // Import functions that will pull data from the API and cache it locally
-import { getEvents } from './dataAccess.js'
+import { getEvents } from '/dataAccess.js'
 // Import function to generate HTML for each event object
-import { eventForm } from './Events.js'
+import { eventForm } from "./Events.js"
 
 // Define array of month names to be used later in month partition header
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
