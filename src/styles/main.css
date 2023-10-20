@@ -2,13 +2,16 @@
 @import "./tasks.css";
 @import "./navbar.css";
 @import "./splashpage.css";
+@import "./dashboard.css";
 
+body {
+	background-color: whitesmoke;
+}
 .container {
 	width: 100vw;
 	height: auto;
 	display: flex;
 	flex-direction: column;
-	background-color: whitesmoke;
 }
 
 .hidden {

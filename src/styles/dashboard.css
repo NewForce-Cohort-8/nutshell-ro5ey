@@ -1,0 +1,14 @@
+.column {
+	flex-direction: column;
+}
+.dashboard-component {
+	height: 60vh;
+	gap: 5em;
+}
+
+.dashboard-container {
+	display: flex;
+}
+#dashboard--chats {
+	height: 50%;
+}

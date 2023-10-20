@@ -21,7 +21,18 @@ import { makeChart } from "./Tasks.js";
     4. Also, if the user authenticates, and the login form is initially shown
         ensure that the Nutshell component gets rendered
 */
-
+const updateComponentVisibility = () => {
+	if (sessionStorage.getItem("navClicked") === "true") {
+		console.log(Object.keys(sessionStorage));
+		const sessionStorageKeys = Object.keys(sessionStorage);
+		for (const key of sessionStorageKeys) {
+			if (key !== "activeUser" && key !== "navClicked") {
+				let componentToUpdate = document.querySelector(`#dashboard--${key}`);
+				componentToUpdate.classList.remove("hidden");
+			}
+		}
+	}
+};
 const mainContainer = document.querySelector(".container");
 const render = () => {
 	fetchUsers()
@@ -40,6 +51,7 @@ const render = () => {
 			} else {
 				mainContainer.innerHTML = Nutshell();
 				makeChart();
+				updateComponentVisibility();
 			}
 		});
 };

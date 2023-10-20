@@ -33,14 +33,18 @@ mainContainer.addEventListener("click", (event) => {
 		if (isActive) {
 			event.target.classList.remove("active");
 			matchingComponent.classList.add("hidden");
+			sessionStorage.removeItem(navId);
 		} else {
 			event.target.classList.add("active");
 			matchingComponent.classList.remove("hidden");
 			sessionStorage.setItem("navClicked", true);
+			sessionStorage.setItem(navId, true);
 		}
 		if (sessionStorage.getItem("navClicked") === "true") {
 			const splashPage = document.querySelector("#splash-page");
-			splashPage.classList.add("hidden");
+			if (splashPage) {
+				splashPage.classList.add("hidden");
+			}
 		}
 	}
 });
