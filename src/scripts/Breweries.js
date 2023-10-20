@@ -22,17 +22,32 @@ const convertSearchParam = () => {
 
 const makeBreweriesList = (arr) => {
 	let breweryHTML = `
+	<div id="brewery-component" class="column">
+	<div class="column brewery-header">
     <h2>Breweries</h2>
+	<div 
+	class="row">
+	<div class="column" id="brewery-inputs">
+	<div class="row input-row">
     <label for="search-by-city">Search by city:</label>
     <input type="text" name="search-by-city" id="search-by-city" placeholder="Enter city..." />
+	</div>
+	<div class="row">
     <label for="search-by-state">Search by state:</label>
     <input type="text" name="search-by-state" id="search-by-state" placeholder="Enter state..." />
+	</div>
+	</div>
     <button id="brewery-search">SEARCH</button>
+	</div>
     <h3 class="breweries-param">Currently showing breweries in: ${convertSearchParam()}</h3>
+	</div>
+	<div class="row" id="brewery-container">
     `;
 	breweryHTML += arr
 		.map((brewery) => {
-			let html = `<div class="brewery">
+			let html = `
+			
+			<div class="brewery-card column">
         <h3 class="brewery-name">${brewery.name}</h3>
         `;
 			if (brewery.street) {
@@ -49,7 +64,7 @@ const makeBreweriesList = (arr) => {
 			return html;
 		})
 		.join("");
-
+	breweryHTML += `</div></div>`;
 	return breweryHTML;
 };
 export const Breweries = () => {

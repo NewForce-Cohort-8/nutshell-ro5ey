@@ -1,0 +1,57 @@
+.splash-container {
+	display: flex;
+	gap: 2em;
+}
+.row {
+	flex-direction: row;
+}
+.column {
+	flex-direction: column;
+}
+#splash-page {
+	max-width: 100%;
+	justify-content: space-around;
+	margin: 4em;
+}
+
+#brewery-container {
+	max-height: 38vh;
+	flex-wrap: wrap;
+	overflow-y: scroll;
+	justify-content: center;
+	gap: 2em;
+	padding: 2em;
+}
+
+.brewery-card {
+	display: flex;
+	padding: 1em;
+	max-width: 200px;
+	border: 0.2em solid rgb(91, 64, 64);
+	border-radius: 2em;
+}
+
+#breweries {
+	max-height: 70vh;
+}
+
+#splash-breweries {
+	max-width: 65%;
+}
+
+#other-splash-items {
+	max-width: 35%;
+}
+
+.brewery-header {
+	gap: 2em;
+	align-items: center;
+}
+
+.input-row {
+	max-width: 400px;
+}
+.input.row > input {
+	display: flex;
+	width: 100%;
+}

@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Urbanist&display=swap");
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#logo-img {
+	width: 5em;
+	height: auto;
+}
+
+#title {
+	font-family: "Lobster", sans-serif;
+	font-size: 8em;
+	color: rgb(91, 64, 64);
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+}
+
+#logo {
+	justify-content: center;
+	align-items: center;
+	gap: 1em;
+}
+
+#nav-bar {
+	gap: 2em;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	max-width: 80vw;
+	margin: auto;
+}
+
+.nav-item {
+	list-style-type: none;
+	font-size: 1.5em;
+	cursor: pointer;
+	color: rgb(91, 64, 64);
+	font-family: "Urbanist", sans-serif;
+	padding: 1em 1.25em;
+}
+
+.nav-item > button {
+	font-size: 0.75em;
+	background-color: rgb(69, 146, 31);
+	border: none;
+	border-radius: 2em;
+	padding: 0.5em 1em;
+	color: white;
+	font-family: "Urbanist", sans-serif;
+	cursor: pointer;
+}
+
+.active {
+	border-radius: 3em;
+	border: 0.1em solid rgb(91, 64, 64);
+}

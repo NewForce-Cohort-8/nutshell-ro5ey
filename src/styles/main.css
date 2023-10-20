@@ -1,2 +1,16 @@
 @import "./chat.css";
 @import "./tasks.css";
+@import "./navbar.css";
+@import "./splashpage.css";
+
+.container {
+	width: 100vw;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	background-color: whitesmoke;
+}
+
+.hidden {
+	display: none;
+}

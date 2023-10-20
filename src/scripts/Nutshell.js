@@ -1,18 +1,20 @@
-import { LogOutButton } from "./auth/LogoutButton.js";
-import { getTasks } from "./dataAccess.js";
-import { TaskForm } from "./TaskForm.js";
 import { TaskList } from "./Tasks.js";
 import { Chat } from "./Chat.js";
 import { News } from "./news.js";
-import { DadJokes } from "./DadJokes.js";
-import { ChuckNorrisFacts } from "./ChuckNorris.js";
-import { RandomActivities } from "./RandomActivity.js";
-import { Breweries } from "./Breweries.js";
+import { NavBar } from "./NavBar.js";
+import { SplashPage } from "./SplashPage.js";
+import { Dashboard } from "./Dashboard.js";
 
 export const Nutshell = () => {
-	return `${LogOutButton()}
-	${Chat()}    
-    ${News()}        
-    ${TaskList()}${ChuckNorrisFacts()}${DadJokes()}${RandomActivities()}${Breweries()}
+	let navWasClicked = sessionStorage.getItem("navClicked");
+	let html = `
+  ${NavBar()}
+  `;
+	if (navWasClicked !== "true") {
+		html += `${SplashPage()}${Dashboard()}`;
+	} else {
+		html += `${Dashboard()}
     `;
+	}
+	return html;
 };
