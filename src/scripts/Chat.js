@@ -7,7 +7,6 @@ import {
 	sendReaction,
 	deleteReaction,
 	updateReaction,
-	setScrollHeight,
 } from "./dataAccess.js";
 
 //grab container
@@ -166,7 +165,6 @@ mainContainer.addEventListener("click", (event) => {
 	}
 	//if clicking like button
 	if (event.target.id.startsWith("like")) {
-		setScrollHeight();
 		const allReactions = getReactions();
 		//get userId and messageId from event click
 		const [, userId, messageId] = event.target.id.split("--");
