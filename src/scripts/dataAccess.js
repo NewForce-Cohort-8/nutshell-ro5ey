@@ -1,6 +1,47 @@
 let applicationState = {};
 const API = "http://localhost:8088";
 const mainContainer = document.querySelector(".container");
+
+//fetch options for post
+const fetchOptions = (obj) => {
+	return {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(obj),
+	};
+};
+
+export const fetchTasks = () => {
+    return fetch(`${API}/tasks`)
+    .then((response) => response.json())
+    .then((tasks) => {
+        applicationState.tasks = tasks;
+    })
+};
+export const getTasks = () => {
+    return applicationState.tasks.map(task => ({...task}))
+};
+export const deleteTasks = (id) => {
+    return fetch(`${API}/tasks/${id}`, {
+        method: "DELETE", 
+    }).then(() => {
+        mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+    })
+};
+//send message to database
+export const sendTasks = (userTask) => {
+	return fetch(`${API}/tasks`, fetchOptions(userTask))
+		.then((response) => {
+			return response.json();
+		})
+		.then(() => {
+			mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+		});
+};
+
+//fetching news data from the API and storing it in application state://
 export const fetchNews = () => {
 	return fetch(`${API}/news`)
 		.then((response) => response.json())
@@ -75,16 +116,7 @@ export const getUsers = () => {
 	return applicationState.users.map((user) => ({ ...user }));
 };
 
-//fetch options for post
-const fetchOptions = (obj) => {
-	return {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(obj),
-	};
-};
+
 
 const fetchUpdate = (obj) => {
 	return {
@@ -105,7 +137,7 @@ export const updateReaction = (userReaction, reactionId) => {
 			return response.json();
 		})
 		.then(() => {
-			main.dispatchEvent(new CustomEvent("stateChanged"));
+			mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
 		});
 };
 
@@ -150,12 +182,3 @@ export const deleteReaction = (id) => {
 	});
 };
 
-export const setScrollHeight = () => {
-	const chatHistory = document.querySelector("#chat-history");
-	sessionStorage.setItem("chatScroll", chatHistory.scrollTop);
-	let userChatScroll = sessionStorage.getItem(
-		"chatScroll",
-		chatHistory.scrollTop
-	);
-	chatHistory.scrollTop = parseInt(userChatScroll);
-};
