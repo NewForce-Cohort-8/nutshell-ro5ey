@@ -57,7 +57,7 @@ return fetch(`${API}/events/${id}`, fetchOptions)
  }
 
 // delete event capability
-export const deleteEvent = (id) => {
+export const deleteEvent = () => {
     return fetch(`${API}/events/${id}`, { method: "DELETE" })
     .then(
         () => {

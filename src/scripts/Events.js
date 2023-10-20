@@ -20,8 +20,6 @@ export const listOfEvents = () => {
         </div>`
     }).join("")} 
      </div>
-<div id="new-event-form"></div>
-<button class="button" id="createNewEvent">Create New Event</button>
 `
     }
 
@@ -70,9 +68,9 @@ mainContainer.addEventListener("click", clickEvent => {
         document.querySelector("#new-event-form").innerHTML = eventForm()
     }
 })
-//targets elements whose id starts with "delete-event--". When such an element is clicked, it extracts relevant data from the clicked element and then calls the deleteEvent function
+//targets elements whose id starts with "delete-event--". calls the deleteEvent function
 mainContainer.addEventListener("click", clickEvent => {
-    if(clickEvent.target.id.startsWith("delete-event--")){ 
+    if(clickEvent.target.id.startsWith("listOfEvents--")){ 
         deleteEvent(parseInt(clickEvent.target.value))
     }
 })
