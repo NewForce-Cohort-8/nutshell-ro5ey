@@ -1,17 +1,11 @@
 import { LoginForm } from "./auth/LoginForm.js";
 import { RegisterForm } from "./auth/RegisterForm.js";
+import { fetchEvents, fetchUsers } from "./Dataaccess.js";
 import { Nutshell } from "./Nutshell.js";
-import {
-	fetchUsers,
-	fetchMessages,
-	fetchMessageReactions,
-	fetchNews,
-  fetchTasks,
-  fetchEvents
-} from "/dataAccess.js";
-import { fetchChuckFact } from "./ChuckNorris.js";
-import { fetchDadJoke } from "./DadJokes.js";
-import { fetchRandomActivity } from "./RandomActivity.js";
+
+//import { fetchChuckFact } from "./ChuckNorris.js";
+//import { fetchDadJoke } from "./DadJokes.js";
+//import { fetchRandomActivity } from "./RandomActivity.js";
 
 
 /*
@@ -24,14 +18,14 @@ import { fetchRandomActivity } from "./RandomActivity.js";
 const mainContainer = document.querySelector(".container");
 const render = () => {
 	fetchUsers()
-		.then(() => fetchMessages())
-		.then(() => fetchNews())
-		.then(() =>fetchEvents)
-    .then(() => fetchTasks())
-		.then(() => fetchMessageReactions())
-		.then(() => fetchChuckFact())
-		.then(() => fetchDadJoke())
-		.then(() => fetchRandomActivity())
+		//.then(() => fetchMessages())
+		//.then(() => fetchNews())
+		.then(() =>fetchEvents())
+    //.then(() => fetchTasks())
+		//.then(() => fetchMessageReactions())
+		//.then(() => fetchChuckFact())
+		//.then(() => fetchDadJoke())
+		//.then(() => fetchRandomActivity())
 		.then(() => {
 			const activeUser = sessionStorage.getItem("activeUser");
 			if (!activeUser) {

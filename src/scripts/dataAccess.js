@@ -1,12 +1,10 @@
 //this is to create and export an object that can be used to store the state of an application. ?The state object contains only one property, events, which is an empty array.
 
 let applicationState = {
-
     events:[]
 }
 const API = "http://localhost:8088"
 //selects an HTML element with the ID "dashboard" in the document and assigns a reference to that element to the JavaScript variable dashboard. This allows you to manipulate and interact with the selected HTML element in your JavaScript code using the dashboard variable.
-const dashboard = document.querySelector(".dashboard");
 const mainContainer = document.querySelector(".container")
 
 
@@ -16,7 +14,8 @@ export const fetchEvents = () => {
         .then(response => response.json())
         .then(
             (newEvents) => {
-        
+                console.log(newEvents)
+
                 applicationState.events = newEvents
             }
         )
@@ -41,14 +40,16 @@ export const fetchUsers = () => {
 
 // ability to save event
 export const saveEvent = (userEventRequest) => {
-
-
-
-    
+const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }, 
 //a string that represents the contents of the userEventRequest object in JSON format
-body: JSON.stringify(userEventRequest)
+body: JSON.stringify(userEventRequest)}
+
 //this code fetches data from a specified API endpoint, processes the response as JSON, and then triggers a custom event named "stateChanged" on the mainContainer element
-return fetch(`${API}/events/${id}, fetchOptions`, {method: "POST"})
+return fetch(`${API}/events/${id}`, fetchOptions)
     .then(response => response.json())
     .then(() => {
         mainContainer.dispatchEvent(new CustomEvent("stateChanged"))

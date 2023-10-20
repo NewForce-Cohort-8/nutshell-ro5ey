@@ -1,11 +1,11 @@
-import { saveEvent } from "/dataAccess.js"
+import { saveEvent } from "./dataAccess.js"
 
 
 const mainContainer = document.querySelector(".container")
 const userId = sessionStorage.getItem("activeUser");
 
 
-////code listens for a click event on the mainContainer, checks if the "Save Event" button was clicked, collects user input data, prepares the data for sending to an API, and ensures that all required fields are filled out before initiating the data-saving process - console log inspects main container variable
+
 
 export const eventForm = () => {
     //template literals for for form which includes fields for event name, date, location, time, and description, along with a "Save Event" button and a background image container
@@ -63,6 +63,7 @@ else {
 }
     }
         })
+
 
 
 
