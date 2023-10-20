@@ -1,5 +1,7 @@
 const applicationState = {};
 const API = "http://localhost:8088";
+
+const mainContainer = document.querySelector(".container");
 //fetch options for post
 const fetchOptions = (obj) => {
 	return {
@@ -21,11 +23,11 @@ export const fetchTasks = () => {
 export const getTasks = () => {
 	return applicationState.tasks.map((task) => ({ ...task }));
 };
-export const deleteTasks = (id) => {
+export const deleteTask = (id) => {
 	return fetch(`${API}/tasks/${id}`, {
 		method: "DELETE",
 	}).then(() => {
-		main.dispatchEvent(new CustomEvent("stateChanged"));
+		mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
 	});
 };
 export const sendTasks = (userTask) => {
@@ -131,7 +133,7 @@ export const updateReaction = (userReaction, reactionId) => {
 			return response.json();
 		})
 		.then(() => {
-			main.dispatchEvent(new CustomEvent("stateChanged"));
+			mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
 		});
 };
 

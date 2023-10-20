@@ -6,6 +6,7 @@ import {
 	fetchMessages,
 	fetchNews,
 	fetchTasks,
+	fetchMessageReactions,
 } from "./dataAccess.js";
 import { fetchChuckFact } from "./ChuckNorris.js";
 import { fetchDadJoke } from "./DadJokes.js";

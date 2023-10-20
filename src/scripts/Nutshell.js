@@ -11,9 +11,8 @@ import { Breweries } from "./Breweries.js";
 
 export const Nutshell = () => {
 	return `${LogOutButton()}
-	${Chat()}<div class="news">    
+	${Chat()}    
     ${News()}        
-    </div>${TaskForm()}
     ${TaskList()}${ChuckNorrisFacts()}${DadJokes()}${RandomActivities()}${Breweries()}
     `;
 };

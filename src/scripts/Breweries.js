@@ -24,9 +24,9 @@ const makeBreweriesList = (arr) => {
 	let breweryHTML = `
     <h2>Breweries</h2>
     <label for="search-by-city">Search by city:</label>
-    <input type="text" name="search-by-city" placeholder="Enter city..." />
+    <input type="text" name="search-by-city" id="search-by-city" placeholder="Enter city..." />
     <label for="search-by-state">Search by state:</label>
-    <input type="text" name="search-by-state" placeholder="Enter state..." />
+    <input type="text" name="search-by-state" id="search-by-state" placeholder="Enter state..." />
     <button id="brewery-search">SEARCH</button>
     <h3 class="breweries-param">Currently showing breweries in: ${convertSearchParam()}</h3>
     `;
@@ -80,7 +80,6 @@ document.addEventListener("click", (event) => {
 			currentSearchParam = convertSearchInput(city);
 			fetchBreweries().then(() => {
 				breweriesWrapper.innerHTML = makeBreweriesList(breweries);
-				console.log(breweries);
 			});
 		}
 		if (state && !city) {

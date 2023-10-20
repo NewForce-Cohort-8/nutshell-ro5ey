@@ -7,7 +7,6 @@ import {
 	sendReaction,
 	deleteReaction,
 	updateReaction,
-	setScrollHeight,
 } from "./dataAccess.js";
 
 //grab container
@@ -92,7 +91,7 @@ const ChatHistory = () => {
 					matchedUser.id,
 					message.id
 				)}</div>
-        <button type="button" id="delete--${
+        <button type="button" id="delete-message--${
 					message.id
 				}" class="delete-button hidden">Delete Message</button>
                 </div>
@@ -105,7 +104,7 @@ const ChatHistory = () => {
 //combine chathistory and message inputs
 export const Chat = () => {
 	return `
-    <article class="chat-component column">
+    <article class="chat-component column" id="chats">
     ${ChatHistory()}
 	${MessageInput()}
     </article>
@@ -114,8 +113,6 @@ export const Chat = () => {
 
 //click event listenters
 mainContainer.addEventListener("click", (event) => {
-	const chatHistory = document.querySelector("#chat-history");
-	sessionStorage.setItem("chatScroll", chatHistory.scrollTop);
 	const userId = sessionStorage.getItem("activeUser");
 
 	//if clicking send button, send message to database
@@ -143,7 +140,7 @@ mainContainer.addEventListener("click", (event) => {
 		}
 	}
 	//if clicking delete button
-	if (event.target.id.startsWith("delete")) {
+	if (event.target.id.startsWith("delete-message")) {
 		const [, messageId] = event.target.id.split("--");
 		//delete message
 		deleteMessage(parseInt(messageId));
@@ -153,7 +150,9 @@ mainContainer.addEventListener("click", (event) => {
 		const [, messageId] = event.target.id.split("--");
 		const thisMessage = event.target;
 		const thisMessageWrapper = thisMessage.parentElement;
-		const thisMessageButton = document.querySelector(`#delete--${messageId}`);
+		const thisMessageButton = document.querySelector(
+			`#delete-message--${messageId}`
+		);
 		//display delete button and highlight message
 		if (thisMessageButton.classList.contains("hidden")) {
 			thisMessageButton.classList.remove("hidden");
@@ -166,7 +165,6 @@ mainContainer.addEventListener("click", (event) => {
 	}
 	//if clicking like button
 	if (event.target.id.startsWith("like")) {
-		setScrollHeight();
 		const allReactions = getReactions();
 		//get userId and messageId from event click
 		const [, userId, messageId] = event.target.id.split("--");
