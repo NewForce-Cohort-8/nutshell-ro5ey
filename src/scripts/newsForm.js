@@ -32,7 +32,7 @@ mainContainer.addEventListener("click", (clickEvent) => {
 
 export const NewsForm = () => {
 	let html = `
-    <div id="newsForm"
+    <div id="newsForm" style="display: none">
       
       <div class="field">
         <label class="label" for="newsTitle">Title</label>
@@ -48,7 +48,7 @@ export const NewsForm = () => {
       </div>
 
       <button class="button" id="saveArticle">Save Article</  button>
-    </section>
+    </div>
     `;
 	return html;
 };

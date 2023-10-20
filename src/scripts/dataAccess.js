@@ -124,6 +124,16 @@ const fetchUpdate = (obj) => {
 	};
 };
 
+export const updateTask = (userTask, taskId) => {
+	return fetch(`${API}/tasks/${taskId}`, fetchUpdate(userTask))
+		.then((response) => {
+			return response.json();
+		})
+		.then(() => {
+			mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+		});
+};
+
 export const updateReaction = (userReaction, reactionId) => {
 	return fetch(
 		`${API}/messageReactions/${reactionId}`,

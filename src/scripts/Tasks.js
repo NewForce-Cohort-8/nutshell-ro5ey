@@ -1,4 +1,4 @@
-import { getTasks, deleteTask, sendTasks } from "./dataAccess.js";
+import { getTasks, deleteTask, sendTasks, updateTask } from "./dataAccess.js";
 
 const mainContainer = document.querySelector(".container");
 const userId = sessionStorage.getItem("activeUser");
@@ -6,10 +6,8 @@ const userId = sessionStorage.getItem("activeUser");
 const TaskForm = () => {
 	let html = `
     <div class = "taskForm">
-    <h1>Add New Task</h1>
-        <button class= "button" id ="submitTask">Add New Task</button>
-
-        <form id="myForm">
+        <button class= "button" id="submitTask"">Add New Task</button>
+        <form id="myForm" style="display: none">
         <br>
             <label class="label" for="taskName">Task:</label>
             <input type="text" id="taskName" name="taskName" class = "input" placeholder="Enter new task..."/>
@@ -23,21 +21,59 @@ const TaskForm = () => {
 	return html;
 };
 
-const convertTasks = () => {
+const convertCompletedTasks = () => {
 	const tasks = getTasks();
-	console.log(tasks);
-	let TableBodyHTML = tasks
+	const completedTasks = tasks.filter((task) => task.completed);
+	console.log(completedTasks);
+	const sortedCompletedTasks = completedTasks.sort((a, b) => {
+		return a.completedDate - b.completedDate;
+	});
+	let TableBodyHTML = sortedCompletedTasks
 		.map((task) => {
-			return `
-    <tbody id="incomplete-tasks" class="incomplete-body">
-    <tr class="task">
-                <td class="complete-checkbox"><input type="checkbox" id="complete-task--${task.id}" /></td>
-                <td class="goal-date">${task.goalDate} </td>
-                <td class="task-name">${task.task}</td> 
-                <td class="delete-checkbox"><input type="checkbox" id="delete-task--${task.id}" /></td>
-            </tr>
-            </tbody>
-            `;
+			return `   
+                    <tbody id="complete-tasks" class="complete-body">
+                        <tr class="task">
+                            <td class="goal-date">${new Date(
+															task.completedDate
+														).toLocaleDateString("en-US")}</td>
+                            <td class="task-name">${task.task}</td> 
+                            <td class="delete-checkbox"><input type="checkbox" id="delete-task--${
+															task.id
+														}" /></td>
+                        </tr>
+                    </tbody>
+                `;
+		})
+		.join("");
+	return TableBodyHTML;
+};
+
+const convertIncompleteTasks = () => {
+	const tasks = getTasks();
+	const sortedTasks = tasks.sort((a, b) => {
+		return new Date(a.goalDate) - new Date(b.goalDate);
+	});
+	console.log(tasks);
+	let TableBodyHTML = sortedTasks
+		.map((task) => {
+			if (!task.completed) {
+				return `
+                    <tbody id="incomplete-tasks" class="incomplete-body">
+                        <tr class="task">
+                            <td class="complete-checkbox"><input type="checkbox" id="complete-task--${
+															task.id
+														}" /></td>
+                            <td class="goal-date">${new Date(
+															task.goalDate
+														).toLocaleDateString("en-US")} </td>
+                            <td class="task-name">${task.task}</td> 
+                            <td class="delete-checkbox"><input type="checkbox" id="delete-task--${
+															task.id
+														}" /></td>
+                        </tr>
+                    </tbody>
+                `;
+			}
 		})
 		.join("");
 	return TableBodyHTML;
@@ -45,27 +81,43 @@ const convertTasks = () => {
 
 export const TaskList = () => {
 	let html = `<h2>To Do List</h2>${TaskForm()}
-        <table id="task-list">
-        <thead id="task-list-header" class="table-header">
+        <table id="incomplete-task-list">
+        <thead id="incomplete-task-list-header" class="table-header">
         <tr class="table-header-row">
-        <th id="complete-header" class="table-header checkbox">Complete</th>
-        <th id="-goal-date-header" class="table-header date">Goal Date</th>
-        <th id="name-header" class="table-header name">Task</th>
-        <th id="delete-header" class="table-header checkbox">Delete</th>
+        <th class="table-header checkbox complete-header">Complete</th>
+        <th class="table-header date goal-date-header">Goal Date</th>
+        <th class="table-header name name-header">Task</th>
+        <th class="table-header checkbox delete-header">Delete</th>
         </tr>
     </thead>
-    ${convertTasks()}
+    ${convertIncompleteTasks()}
+    </table>
+    <h2>Completed Tasks</h2>
+        <table id="completed-task-list">
+        <thead id="complete-task-list-header" class="table-header">
+        <tr class="table-header-row">
+        <th class="table-header date complete-date-header">Date Completed</th>
+        <th class="table-header name name-header">Task</th>
+        <th class="table-header checkbox delete-header">Delete</th>
+        </tr>
+    </thead>
+    ${convertCompletedTasks()}
     </table>`;
 
 	return html;
 };
 
 mainContainer.addEventListener("change", (event) => {
-	if (event.target.id.startsWith("delete-task")) {
-		const [, taskId] = event.target.id.split("--");
-		if (event.target.checked) {
-			deleteTask(parseInt(taskId));
-		}
+	const [, taskId] = event.target.id.split("--");
+	if (event.target.id.startsWith("delete-task") && event.target.checked) {
+		deleteTask(parseInt(taskId));
+	}
+	if (event.target.id.startsWith("complete-task") && event.target.checked) {
+		const userTask = {
+			completed: true,
+			completedDate: Date.now(),
+		};
+		updateTask(userTask, parseInt(taskId));
 	}
 });
 
@@ -81,7 +133,7 @@ mainContainer.addEventListener("click", (event) => {
 		const taskToSendToAPI = {
 			userId: currentUserId,
 			task: newInputTask,
-			goalDate: userGoalDate,
+			goalDate: new Date(userGoalDate).getTime(),
 			completed: false,
 		};
 
@@ -90,14 +142,14 @@ mainContainer.addEventListener("click", (event) => {
 		sendTasks(taskToSendToAPI);
 	}
 
-	// if (clickEvent.target.id === "submitTask") {
-	// 	const form = document.getElementById("myForm");
-	// 	if (form.style.display === "none") {
-	// 		// 👇 this SHOWS the form
-	// 		form.style.display = "block";
-	// 	} else {
-	// 		// 👇 this HIDES the form
-	// 		form.style.display = "none";
-	// 	}
-	// }
+	if (event.target.id === "submitTask") {
+		const form = document.getElementById("myForm");
+		if (form.style.display === "none") {
+			// 👇 this SHOWS the form
+			form.style.display = "block";
+		} else {
+			// 👇 this HIDES the form
+			form.style.display = "none";
+		}
+	}
 });

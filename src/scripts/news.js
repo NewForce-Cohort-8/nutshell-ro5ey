@@ -25,6 +25,7 @@ export const News = () => {
     <div class="newsForm" id="news">
     <h2>News</h2>
     <button class="button" id="newArticle">New Article</button>
+    ${NewsForm()}
     <ul>
         ${news.map(convertArticleToListElement).join("")}
     </ul>
@@ -34,9 +35,14 @@ export const News = () => {
 
 mainContainer.addEventListener("click", (click) => {
 	if (click.target.id === "newArticle") {
-		const news = document.querySelector("#news");
-		console.log("click");
-		news.innerHTML += NewsForm();
+		const form = document.getElementById("newsForm");
+		if (form.style.display === "none") {
+			// 👇 this SHOWS the form
+			form.style.display = "block";
+		} else {
+			// 👇 this HIDES the form
+			form.style.display = "none";
+		}
 	}
 	//news article delete button event listener
 	if (click.target.id.startsWith("news--")) {
