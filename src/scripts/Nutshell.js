@@ -16,7 +16,6 @@ export const Nutshell = () => {
     ${listOfEvents()}
     ${eventForm()}
     </div>
- 
   `
 };
 

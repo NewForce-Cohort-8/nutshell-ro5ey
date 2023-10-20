@@ -47,7 +47,7 @@ const render = () => {
         if (events.length === 0) {
             eventsHTML += `
             <div class="">
-                <h3>No Upcoming Events</h3>
+                <h1>No Upcoming Events</h1>
             </div>
             `
         } else {
