@@ -1,6 +1,7 @@
 import { LoginForm } from "./auth/LoginForm.js";
 import { RegisterForm } from "./auth/RegisterForm.js";
 import { Nutshell } from "./Nutshell.js";
+import { fetchTasks } from "./dataAccess.js"
 import { fetchUsers, fetchMessages, fetchNews } from "./dataAccess.js";
 
 
@@ -16,13 +17,15 @@ const mainContainer = document.querySelector(".container");
 const render = () => {
 	fetchUsers()
 		.then(() => fetchMessages())
-    .then(() => fetchNews())
+        .then(() => fetchTasks())
+    	.then(() => fetchNews())
  		.then(() => {
 			const activeUser = sessionStorage.getItem("activeUser");
 			if (!activeUser) {
 				mainContainer.innerHTML = LoginForm() + RegisterForm();
 			} else {
-				mainContainer.innerHTML = Nutshell();
+				mainContainer.innerHTML = Nutshell() 
+               
 			}
 		});
 };

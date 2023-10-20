@@ -1,14 +1,60 @@
+const applicationState = {
+    users: [],
+    tasks: [],
+    messages: [],
+}
 
-let applicationState = {};
 
-const API = "http://localhost:8088";
-
+const mainContainer = document.querySelector("#container")
 const dashboard = document.querySelector(".dashboard");
-const mainContainer = document.querySelector(".container");
+const main = document.querySelector(".container");
+
+const API = "http://localhost:8088"
+
+
+//fetch options for post
+const fetchOptions = (obj) => {
+	return {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(obj),
+	};
+};
+
+export const fetchTasks = () => {
+    return fetch(`${API}/tasks`)
+    .then((response) => response.json())
+    .then((tasks) => {
+        applicationState.tasks = tasks;
+    })
+};
+export const getTasks = () => {
+    return applicationState.tasks.map(task => ({...task}))
+};
+export const deleteTasks = (id) => {
+    return fetch(`${API}/tasks/${id}`, {
+        method: "DELETE", 
+    }).then(() => {
+        main.dispatchEvent(new CustomEvent("stateChanged"));
+    })
+};
+//send message to database
+export const sendTasks = (userTask) => {
+	return fetch(`${API}/tasks`, fetchOptions(userTask))
+		.then((response) => {
+			return response.json();
+		})
+		.then(() => {
+			mainContainer.dispatchEvent(new CustomEvent("stateChanged"));
+		});
+};
+
+
 
 //fetching news data from the API and storing it in application state://
 
-const API = "http://localhost:8088"
 
 export const fetchNews = () => {
     return fetch(`${API}/news`)
@@ -90,16 +136,7 @@ export const getUsers = () => {
 	return applicationState.users.map((user) => ({ ...user }));
 };
 
-//fetch options for post
-const fetchOptions = (obj) => {
-	return {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(obj),
-	};
-};
+
 
 //send message to database
 export const sendMessage = (userMessage) => {
