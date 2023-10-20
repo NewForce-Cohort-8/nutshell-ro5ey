@@ -1,9 +1,16 @@
 import { LoginForm } from "./auth/LoginForm.js";
 import { RegisterForm } from "./auth/RegisterForm.js";
 import { Nutshell } from "./Nutshell.js";
-import { fetchTasks } from "./dataAccess.js"
-import { fetchUsers, fetchMessages, fetchNews } from "./dataAccess.js";
-
+import {
+	fetchUsers,
+	fetchMessages,
+	fetchMessageReactions,
+	fetchNews,
+  fetchTasks
+} from "./dataAccess.js";
+import { fetchChuckFact } from "./ChuckNorris.js";
+import { fetchDadJoke } from "./DadJokes.js";
+import { fetchRandomActivity } from "./RandomActivity.js";
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -17,23 +24,24 @@ const mainContainer = document.querySelector(".container");
 const render = () => {
 	fetchUsers()
 		.then(() => fetchMessages())
-        .then(() => fetchTasks())
-    	.then(() => fetchNews())
- 		.then(() => {
+		.then(() => fetchNews())
+    .then(() => fetchTasks())
+		.then(() => fetchMessageReactions())
+		.then(() => fetchChuckFact())
+		.then(() => fetchDadJoke())
+		.then(() => fetchRandomActivity())
+		.then(() => {
 			const activeUser = sessionStorage.getItem("activeUser");
 			if (!activeUser) {
 				mainContainer.innerHTML = LoginForm() + RegisterForm();
 			} else {
 				mainContainer.innerHTML = Nutshell() 
-               
 			}
 		});
 };
 
 render();
 
-
 mainContainer.addEventListener("stateChanged", (customEvent) => {
 	render();
 });
-
