@@ -79,9 +79,25 @@ const convertIncompleteTasks = () => {
 	return TableBodyHTML;
 };
 
+const calculatePercentage = () => {
+	const tasks = getTasks();
+	const total = tasks.length;
+	const completed = tasks.filter((task) => task.completed);
+	const completedTotal = completed.length;
+	const percentage = (completedTotal / total) * 100;
+	console.log(percentage);
+	return percentage.toFixed(2);
+};
+
 export const TaskList = () => {
-	let html = `<h2>To Do List</h2>${TaskForm()}
-        <table id="incomplete-task-list">
+	const tasks = getTasks();
+	const incompleteTasks = tasks.filter((task) => !task.completed);
+	let html = `<h2>To Do List</h2>${TaskForm()}`;
+	if (tasks.length > 0) {
+		html += `<div id="percent-complete">Percent of tasks complete: ${calculatePercentage()}%</div>`;
+	}
+	if (incompleteTasks.length > 0) {
+		html += `<table id="incomplete-task-list">
         <thead id="incomplete-task-list-header" class="table-header">
         <tr class="table-header-row">
         <th class="table-header checkbox complete-header">Complete</th>
@@ -91,8 +107,14 @@ export const TaskList = () => {
         </tr>
     </thead>
     ${convertIncompleteTasks()}
-    </table>
-    <h2>Completed Tasks</h2>
+    </table>`;
+	}
+	const completedTasks = tasks.filter((task) => task.completed);
+	if (incompleteTasks.length === 0 && completedTasks.length > 0) {
+		html += `<h4 id="good-news">🎉You've completed all your current tasks!🎉</h4>`;
+	}
+	if (completedTasks.length > 0) {
+		html += `<h2>Completed Tasks</h2>
         <table id="completed-task-list">
         <thead id="complete-task-list-header" class="table-header">
         <tr class="table-header-row">
@@ -103,6 +125,7 @@ export const TaskList = () => {
     </thead>
     ${convertCompletedTasks()}
     </table>`;
+	}
 
 	return html;
 };
