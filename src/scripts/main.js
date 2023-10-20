@@ -12,6 +12,7 @@ import { fetchChuckFact } from "./ChuckNorris.js";
 import { fetchDadJoke } from "./DadJokes.js";
 import { fetchRandomActivity } from "./RandomActivity.js";
 import { fetchBreweries } from "./Breweries.js";
+import { makeChart } from "./Tasks.js";
 
 /*
     1. Check if the user is authenticated by looking in session storage for `activeUser`
@@ -38,6 +39,7 @@ const render = () => {
 				mainContainer.innerHTML = LoginForm() + RegisterForm();
 			} else {
 				mainContainer.innerHTML = Nutshell();
+				makeChart();
 			}
 		});
 };

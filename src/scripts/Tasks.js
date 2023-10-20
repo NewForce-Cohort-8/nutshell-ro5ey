@@ -88,13 +88,40 @@ const calculatePercentage = () => {
 	console.log(percentage);
 	return percentage.toFixed(2);
 };
+const chartConfig = () => {
+	const tasks = getTasks();
+	const incompleteTasks = tasks.filter((task) => !task.completed);
+	const completedTasks = tasks.filter((task) => task.completed);
+	const numIncomplete = incompleteTasks.length;
+	const numComplete = completedTasks.length;
+	let config = {
+		type: "pie",
+		data: {
+			labels: ["Incomplete", "Complete"],
+			datasets: [
+				{
+					label: "Percent of Tasks Complete",
+					data: [numIncomplete, numComplete],
+					backgroundColor: ["rgb(235, 110, 218)", "rgb(77, 232, 74)"],
+					hoverOffset: 4,
+				},
+			],
+		},
+	};
+	return config;
+};
 
+export const makeChart = () => {
+	const ctx = document.querySelector("#myChart");
+
+	return new Chart(ctx, chartConfig());
+};
 export const TaskList = () => {
 	const tasks = getTasks();
 	const incompleteTasks = tasks.filter((task) => !task.completed);
 	let html = `<h2>To Do List</h2>${TaskForm()}`;
 	if (tasks.length > 0) {
-		html += `<div id="percent-complete">Percent of tasks complete: ${calculatePercentage()}%</div>`;
+		html += `<div id="percent-complete">Percent of tasks complete: ${calculatePercentage()}%</div><div id="percentage-chart"><canvas id="myChart"></canvas></div>`;
 	}
 	if (incompleteTasks.length > 0) {
 		html += `<table id="incomplete-task-list">
